@@ -1,0 +1,26 @@
+﻿@inherits NodeWidgetBaseComponent<TableModel>
+
+<div class="node @(Node.Selected ? "selected" : "")"
+     @onmousedown="OnMouseDown"
+     @onmousedown:stopPropagation
+     @ref="element"
+     style="top: @(Node.Position.Y.ToInvariantString())px;
+            left: @(Node.Position.X.ToInvariantString())px">
+    <div class="card" style="width: 240px;">
+        <div class="card-header d-flex justify-content-between">
+            <input type="text" value="@Node.Name" class="form-control bg-transparent border-0"
+                   @onmousedown:stopPropagation
+                   @onmousemove:stopPropagation />
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var column in Node.Columns)
+            {
+                <TableColumn Data="column"></TableColumn>
+            }
+        </ul>
+    </div>
+    @foreach (var port in Node.Ports)
+    {
+        <PortWidget Port="port" />
+    }
+</div>
