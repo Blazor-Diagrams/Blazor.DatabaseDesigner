@@ -14,11 +14,6 @@
   <ItemGroup>
     <Watch Include="**\*.js;**\*.css;**\*.cs;**\*.razor;**\*.html" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Watch Remove="Components\Diagram\TableColumn.razor" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DatabaseDesigner.Core\DatabaseDesigner.Core.csproj" />
   </ItemGroup>

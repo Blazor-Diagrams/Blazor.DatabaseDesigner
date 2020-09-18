@@ -6,11 +6,23 @@
      @ref="element"
      style="top: @(Node.Position.Y.ToInvariantString())px;
             left: @(Node.Position.X.ToInvariantString())px">
-    <div class="card" style="width: 240px;">
-        <div class="card-header d-flex justify-content-between">
-            <input type="text" value="@Node.Name" class="form-control bg-transparent border-0"
-                   @onmousedown:stopPropagation
-                   @onmousemove:stopPropagation />
+    <div class="card" style="width: 320px;">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            @* Name input *@
+            <input type="text" class="form-control fully-transparent mr-3" @bind="Node.Name" @bind:event="oninput"
+                   @onmousedown:stopPropagation />
+            @* Actions *@
+            <div class="dropdown">
+                <a class="fully-transparent" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <h6 class="dropdown-header">Actions</h6>
+                    <a class="dropdown-item" href="#">Add column</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Supprimer</a>
+                </div>
+            </div>
         </div>
         <ul class="list-group list-group-flush">
             @foreach (var column in Node.Columns)

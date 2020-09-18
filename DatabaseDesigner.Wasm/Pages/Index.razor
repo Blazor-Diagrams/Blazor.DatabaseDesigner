@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <span class="navbar-brand" href="#">Database Designer</span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -11,8 +11,11 @@
     </div>
 </nav>
 
-<div class="diagram-container">
+<div class="wrapper">
     <CascadingValue Name="DiagramManager" Value="Diagram">
-        <DiagramCanvas></DiagramCanvas>
+        <div class="diagram-container">
+            <DiagramCanvas></DiagramCanvas>
+        </div>
+        <Sidebar></Sidebar>
     </CascadingValue>
 </div>

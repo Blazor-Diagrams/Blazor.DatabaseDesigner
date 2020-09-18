@@ -1,6 +1,10 @@
-﻿.diagram-container {
-    width: 100%;
-    height: calc(100vh - 73px);
+﻿.wrapper {
+    display: flex;
+}
+
+.diagram-container {
+    flex: 1;
+    height: calc(100vh - 56.59px);
     background-size: 40px 40px;
     background-image: linear-gradient(to right, rgb(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgb(0, 0, 0, 0.05) 1px, transparent 1px);
 }
