@@ -6,3 +6,7 @@
 .dropdown > a {
     color: black;
 }
+
+.node > .card.selected {
+    border: 1px #4582ec solid;
+}

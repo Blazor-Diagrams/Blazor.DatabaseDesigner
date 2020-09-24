@@ -8,12 +8,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-rc.1.20451.17" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-rc.1.20451.17" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0-rc.1.20451.14" />
-    <PackageReference Include="Z.Blazor.Diagrams" Version="0.7.0" />
+    <PackageReference Include="Z.Blazor.Diagrams" Version="1.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Watch Include="**\*.js;**\*.css;**\*.cs;**\*.razor;**\*.html" />
-  </ItemGroup>
+  <Target Name="AddMyWatchItems" BeforeTargets="GenerateWatchList">
+    <ItemGroup>
+      <Watch Include="**\*.js;**\*.css;**\*.cs;**\*.razor;**\*.html" />
+    </ItemGroup>
+  </Target>
+  
   <ItemGroup>
     <ProjectReference Include="..\DatabaseDesigner.Core\DatabaseDesigner.Core.csproj" />
   </ItemGroup>

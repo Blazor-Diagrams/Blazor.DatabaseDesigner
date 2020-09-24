@@ -27,7 +27,11 @@ namespace DatabaseDesigner.Wasm.Components
 
         private void Diagram_SelectionChanged(SelectableModel model, bool selected)
         {
-            StateHasChanged();
+            if (model is TableModel tm)
+            {
+                _selectedTable = selected ? tm : null;
+                StateHasChanged();
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DatabaseDesigner.Wasm.Pages
@@ -17,7 +16,8 @@ namespace DatabaseDesigner.Wasm.Pages
 
         public DiagramManager Diagram { get; } = new DiagramManager(new DiagramOptions
         {
-            GridSize = 40
+            GridSize = 40,
+            AllowMultiSelection = false
         });
 
         protected override void OnInitialized()
