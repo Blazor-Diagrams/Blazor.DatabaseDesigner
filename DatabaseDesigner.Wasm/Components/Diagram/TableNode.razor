@@ -5,7 +5,7 @@
     <ul class="list-group list-group-flush">
         @foreach (var column in Node.Columns)
         {
-            <TableColumn Data="column"></TableColumn>
+            <TableColumn @key="column" Data="column"></TableColumn>
         }
     </ul>
 

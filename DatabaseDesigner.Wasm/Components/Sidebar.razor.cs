@@ -33,5 +33,14 @@ namespace DatabaseDesigner.Wasm.Components
                 StateHasChanged();
             }
         }
+
+        private void OnTableNameChanged(ChangeEventArgs e)
+        {
+            if (_selectedTable == null)
+                return;
+
+            _selectedTable.Name = e.Value.ToString();
+            _selectedTable.Refresh();
+        }
     }
 }

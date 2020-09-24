@@ -1,1 +1,8 @@
-﻿<li class="list-group-item">Cras justo odio</li>
+﻿<li class="list-group-item">
+    @if (Data.Primary)
+    {
+        <i class="fas fa-key mr-2 text-warning"></i> 
+    }
+    <span class="text-primary">@Data.Type.ToString()</span>
+    @Data.Name
+</li>

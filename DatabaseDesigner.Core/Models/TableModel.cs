@@ -9,7 +9,15 @@ namespace DatabaseDesigner.Core.Models
 
         public TableModel(Point position = null) : base(position, RenderLayer.HTML)
         {
-            _columns = new List<Column>();
+            _columns = new List<Column>
+            {
+                new Column
+                {
+                    Name = "Id",
+                    Type = ColumnType.String,
+                    Primary = true
+                }
+            };
         }
 
         public string Name { get; set; } = "Table";

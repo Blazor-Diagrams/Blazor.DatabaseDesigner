@@ -7,6 +7,9 @@
     }
     else
     {
-
+        <div class="form-group">
+            <label for="tableName">Table name</label>
+            <input id="tableName" type="text" class="form-control" value="@_selectedTable.Name" @oninput="OnTableNameChanged" />
+        </div>
     }
 </div>
