@@ -28,6 +28,11 @@ namespace DatabaseDesigner.Wasm.Pages
             Diagram.AddNode(new TableModel());
         }
 
+        private void NewTable()
+        {
+            Diagram.AddNode(new TableModel());
+        }
+
         private async Task ShowJson()
         {
             var json = JsonSerializer.Serialize(new
