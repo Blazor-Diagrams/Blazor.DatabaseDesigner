@@ -6,6 +6,6 @@ namespace DatabaseDesigner.Wasm.Components.Diagram
     public partial class TableNode
     {
         [Parameter]
-        public TableModel Node { get; set; }
+        public Table Node { get; set; }
     }
 }

@@ -10,3 +10,16 @@
 .node > .card.selected {
     border: 1px #4582ec solid;
 }
+
+.list-group {
+    border-bottom: unset;
+}
+
+::deep .port {
+    width: 20px;
+    height: 46px;
+    background: black;
+    position: absolute;
+    top: 45px;
+    right: 0;
+}

@@ -1,8 +1,8 @@
 ﻿<li class="list-group-item">
-    @if (Data.Primary)
+    @if (Column.Primary)
     {
-        <i class="fas fa-key mr-2 text-warning"></i> 
+        <i class="fas fa-key mr-2 text-warning"></i>
     }
-    <span class="text-primary">@Data.Type.ToString()</span>
-    @Data.Name
+    <span class="text-primary @(Column.Primary ? "" : "ml-4")">@Column.Type.ToString()</span>
+    @Column.Name
 </li>

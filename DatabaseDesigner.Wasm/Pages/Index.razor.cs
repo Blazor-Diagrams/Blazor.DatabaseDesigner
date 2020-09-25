@@ -24,13 +24,13 @@ namespace DatabaseDesigner.Wasm.Pages
         {
             base.OnInitialized();
 
-            Diagram.RegisterModelComponent<TableModel, TableNode>();
-            Diagram.AddNode(new TableModel());
+            Diagram.RegisterModelComponent<Table, TableNode>();
+            Diagram.AddNode(new Table());
         }
 
         private void NewTable()
         {
-            Diagram.AddNode(new TableModel());
+            Diagram.AddNode(new Table());
         }
 
         private async Task ShowJson()

@@ -1,7 +1,11 @@
 ﻿.sidebar {
-    width: 300px;
+    width: 350px;
     height: calc(100vh - 56.59px);
     background-color: #f8f9fa;
     border-left: 1px solid #a9afb8;
     padding: 1rem;
+}
+
+select.column-type {
+    width: 120px;
 }

@@ -3,14 +3,13 @@
         <h6 class="mb-0">@Node.Name</h6>
     </div>
     <ul class="list-group list-group-flush">
-        @foreach (var column in Node.Columns)
+        @foreach (var column in Node.Columns.OrderByDescending(c => c.Primary))
         {
-            <TableColumn @key="column" Data="column"></TableColumn>
+            <TableColumn @key="column" Table="Node" Column="column"></TableColumn>
         }
     </ul>
-
-    @foreach (var port in Node.Ports)
+    @if (Node.HasPrimaryColumn)
     {
-        <PortRenderer Port="port" />
+        <PortRenderer Port="Node.GetPort(PortAlignment.Right)"></PortRenderer>
     }
 </div>

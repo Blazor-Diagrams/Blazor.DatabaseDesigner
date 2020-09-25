@@ -11,5 +11,32 @@
             <label for="tableName">Table name</label>
             <input id="tableName" type="text" class="form-control" value="@_selectedTable.Name" @oninput="OnTableNameChanged" />
         </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Column</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var column in _selectedTable.Columns)
+                {
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" value="@column.Name" @oninput="e => OnColumnNameChanged(e, column)" />
+                        </td>
+                        <td>
+                            <select class="form-control column-type">
+                                @foreach (var val in Enum.GetValues(typeof(ColumnType)).Cast<ColumnType>())
+                                {
+                                    <option selected="@(column.Type == val)">@val</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
 </div>

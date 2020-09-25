@@ -8,7 +8,7 @@ namespace DatabaseDesigner.Wasm.Components
 {
     public partial class Sidebar : IDisposable
     {
-        private TableModel _selectedTable;
+        private Table _selectedTable;
 
         [CascadingParameter(Name = "DiagramManager")]
         public DiagramManager Diagram { get; set; }
@@ -27,7 +27,7 @@ namespace DatabaseDesigner.Wasm.Components
 
         private void Diagram_SelectionChanged(SelectableModel model, bool selected)
         {
-            if (model is TableModel tm)
+            if (model is Table tm)
             {
                 _selectedTable = selected ? tm : null;
                 StateHasChanged();
@@ -41,6 +41,12 @@ namespace DatabaseDesigner.Wasm.Components
 
             _selectedTable.Name = e.Value.ToString();
             _selectedTable.Refresh();
+        }
+
+        private void OnColumnNameChanged(ChangeEventArgs e, Column column)
+        {
+            column.Name = e.Value.ToString();
+            column.Refresh();
         }
     }
 }
