@@ -20,6 +20,7 @@ namespace DatabaseDesigner.Core.Models
         String,
         SByte,
         Short,
+        Integer,
         Long
     }
 }

@@ -48,5 +48,11 @@ namespace DatabaseDesigner.Wasm.Components
             column.Name = e.Value.ToString();
             column.Refresh();
         }
+
+        private void OnColumnTypeChanged(ChangeEventArgs e, Column column)
+        {
+            column.Type = Enum.Parse<ColumnType>(e.Value.ToString());
+            column.Refresh();
+        }
     }
 }

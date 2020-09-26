@@ -15,7 +15,7 @@ namespace DatabaseDesigner.Core.Models
                 new Column
                 {
                     Name = "Id",
-                    Type = ColumnType.String,
+                    Type = ColumnType.Integer,
                     Primary = true
                 },
                 new Column
