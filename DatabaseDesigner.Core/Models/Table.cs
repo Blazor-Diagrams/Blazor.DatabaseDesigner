@@ -6,11 +6,9 @@ namespace DatabaseDesigner.Core.Models
 {
     public class Table : NodeModel
     {
-        private readonly List<Column> _columns;
-
         public Table(Point position = null) : base(position, RenderLayer.HTML)
         {
-            _columns = new List<Column>
+            Columns = new List<Column>
             {
                 new Column
                 {
@@ -25,22 +23,11 @@ namespace DatabaseDesigner.Core.Models
                 }
             };
 
-            AddPort(new ColumnPort(this, _columns[0], PortAlignment.Right));
+            AddPort(new ColumnPort(this, Columns[0], PortAlignment.Right));
         }
 
         public string Name { get; set; } = "Table";
-        public IReadOnlyCollection<Column> Columns => _columns;
-        public bool HasPrimaryColumn => _columns.Any(c => c.Primary);
-
-        public void AddColumn()
-        {
-            _columns.Add(new Column
-            {
-                Name = "Column",
-                Type = ColumnType.String,
-                Primary = false
-            });
-            Refresh();
-        }
+        public List<Column> Columns { get; }
+        public bool HasPrimaryColumn => Columns.Any(c => c.Primary);
     }
 }

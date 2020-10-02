@@ -2,6 +2,7 @@
 using Blazor.Diagrams.Core.Models.Base;
 using DatabaseDesigner.Core.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 
 namespace DatabaseDesigner.Wasm.Components
@@ -9,6 +10,7 @@ namespace DatabaseDesigner.Wasm.Components
     public partial class Sidebar : IDisposable
     {
         private Table _selectedTable;
+        private Column _selectedColumn;
 
         [CascadingParameter(Name = "DiagramManager")]
         public DiagramManager Diagram { get; set; }
@@ -30,6 +32,7 @@ namespace DatabaseDesigner.Wasm.Components
             if (model is Table tm)
             {
                 _selectedTable = selected ? tm : null;
+                _selectedColumn = null;
                 StateHasChanged();
             }
         }
@@ -43,16 +46,37 @@ namespace DatabaseDesigner.Wasm.Components
             _selectedTable.Refresh();
         }
 
-        private void OnColumnNameChanged(ChangeEventArgs e, Column column)
+        private void OnAddBtnClicked(MouseEventArgs e)
+        {
+            _selectedTable.Columns.Add(new Column
+            {
+                Name = "Column",
+                Type = ColumnType.String
+            });
+            _selectedTable.Refresh();
+        }
+
+        private void OnDeleteBtnClicked(MouseEventArgs e)
+        {
+            if (_selectedColumn == null || _selectedColumn.Primary)
+                return;
+
+            _selectedTable.Columns.Remove(_selectedColumn);
+            _selectedTable.Refresh();
+        }
+
+        private static void OnColumnNameChanged(ChangeEventArgs e, Column column)
         {
             column.Name = e.Value.ToString();
             column.Refresh();
         }
 
-        private void OnColumnTypeChanged(ChangeEventArgs e, Column column)
+        private static void OnColumnTypeChanged(ChangeEventArgs e, Column column)
         {
             column.Type = Enum.Parse<ColumnType>(e.Value.ToString());
             column.Refresh();
         }
+
+        private void SelectColumn(Column column) => _selectedColumn = column;
     }
 }

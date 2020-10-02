@@ -11,7 +11,7 @@
             <label for="tableName">Table name</label>
             <input id="tableName" type="text" class="form-control" value="@_selectedTable.Name" @oninput="OnTableNameChanged" />
         </div>
-        <table class="table" cellspacing="0">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Column</th>
@@ -21,7 +21,7 @@
             <tbody>
                 @foreach (var column in _selectedTable.Columns)
                 {
-                    <tr>
+                    <tr class="@(column == _selectedColumn ? "active" : "")" @onclick="e => SelectColumn(column)">
                         <td>
                             <input type="text" class="form-control" value="@column.Name" @oninput="e => OnColumnNameChanged(e, column)" />
                         </td>
@@ -37,5 +37,13 @@
                 }
             </tbody>
         </table>
+        <div class="float-right">
+            <button class="btn btn-primary" @onclick="OnAddBtnClicked">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-danger" @onclick="OnDeleteBtnClicked" disabled="@(_selectedColumn == null)">
+                <i class="fa fa-trash"></i>
+            </button>
+        </div>
     }
 </div>

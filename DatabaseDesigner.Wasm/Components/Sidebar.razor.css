@@ -9,3 +9,12 @@
 select.column-type {
     width: 120px;
 }
+
+tr {
+    cursor: pointer;
+}
+
+tr.active {
+    color: #343a40;
+    background-color: rgba(0,0,0,0.075);
+}
