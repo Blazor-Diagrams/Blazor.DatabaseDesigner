@@ -1,4 +1,8 @@
 ﻿<li class="list-group-item">
+    @if (!Column.Primary && Table.GetPort(Column) != null)
+    {
+        <PortRenderer Port="Table.GetPort(Column)"></PortRenderer>
+    }
     @if (Column.Primary)
     {
         <i class="fas fa-key mr-2 text-warning"></i>

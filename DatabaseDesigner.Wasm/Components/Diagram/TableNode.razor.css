@@ -18,8 +18,20 @@
 ::deep .port {
     width: 20px;
     height: 46px;
-    background: black;
     position: absolute;
+}
+
+::deep .port:hover {
+    background: #eee;
+    cursor: pointer;
+}
+
+::deep .port.right {
     top: 45px;
     right: 0;
+}
+
+::deep .port.left {
+    top: 0;
+    left: 0;
 }

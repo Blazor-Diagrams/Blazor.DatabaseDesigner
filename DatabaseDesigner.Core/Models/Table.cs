@@ -18,16 +18,21 @@ namespace DatabaseDesigner.Core.Models
                 },
                 new Column
                 {
-                    Name = "Sefihubqsd",
-                    Type = ColumnType.Boolean
+                    Name = "Test",
+                    Type = ColumnType.Integer
                 }
             };
 
-            AddPort(new ColumnPort(this, Columns[0], PortAlignment.Right));
+            AddPort(Columns[0], PortAlignment.Right);
+            AddPort(Columns[1], PortAlignment.Left);
         }
 
         public string Name { get; set; } = "Table";
         public List<Column> Columns { get; }
         public bool HasPrimaryColumn => Columns.Any(c => c.Primary);
+
+        public ColumnPort GetPort(Column column) => Ports.Cast<ColumnPort>().FirstOrDefault(p => p.Column == column);
+
+        public void AddPort(Column column, PortAlignment alignment) => AddPort(new ColumnPort(this, column, alignment));
     }
 }

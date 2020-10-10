@@ -1,4 +1,5 @@
 ﻿using Blazor.Diagrams.Core;
+using Blazor.Diagrams.Core.Models;
 using Blazor.Diagrams.Core.Models.Base;
 using DatabaseDesigner.Core.Models;
 using Microsoft.AspNetCore.Components;
@@ -48,11 +49,14 @@ namespace DatabaseDesigner.Wasm.Components
 
         private void OnAddBtnClicked(MouseEventArgs e)
         {
-            _selectedTable.Columns.Add(new Column
+            var column = new Column
             {
                 Name = "Column",
                 Type = ColumnType.String
-            });
+            };
+
+            _selectedTable.Columns.Add(column);
+            _selectedTable.AddPort(column, PortAlignment.Left);
             _selectedTable.Refresh();
         }
 

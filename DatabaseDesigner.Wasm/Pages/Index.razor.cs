@@ -3,6 +3,7 @@ using DatabaseDesigner.Core.Models;
 using DatabaseDesigner.Wasm.Components.Diagram;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -42,6 +43,13 @@ namespace DatabaseDesigner.Wasm.Pages
             });
 
             await JSRuntime.InvokeVoidAsync("alert", json);
+        }
+
+        private void Debug()
+        {
+            Console.WriteLine(Diagram.Container);
+            foreach (var port in Diagram.Nodes.ToList()[0].Ports)
+                Console.WriteLine(port.Position);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Blazor.Diagrams.Core.Models;
+using System;
 
 namespace DatabaseDesigner.Core.Models
 {
@@ -11,5 +12,27 @@ namespace DatabaseDesigner.Core.Models
         }
 
         public Column Column { get; }
+
+        public override bool CanAttachTo(PortModel port)
+        {
+            // Avoid attaching to self port/node
+            if (!base.CanAttachTo(port))
+                return false;
+
+            var targetPort = port as ColumnPort;
+            var targetColumn = targetPort.Column;
+
+            if (Column.Type != targetColumn.Type)
+                return false;
+
+            if (Column.Primary && targetColumn.Primary)
+                return false;
+
+            if (Column.Primary && targetPort.Links.Count > 0 ||
+                targetColumn.Primary && Links.Count > 1) // Ongoing link
+                return false;
+
+            return true;
+        }
     }
 }
