@@ -7,29 +7,40 @@ namespace DatabaseDesigner.Wasm.Components.Diagram
 {
     public partial class TableColumn : IDisposable
     {
+        private bool _shouldRender = true;
+
         [Parameter]
         public Table Table { get; set; }
 
         [Parameter]
         public Column Column { get; set; }
 
+        public bool IsReferenceKey => Table.GetPort(Column)?.Links.Count > 0;
+
         public void Dispose()
         {
-            Column.Changed -= Column_Changed;
+            Column.Changed -= ReRender;
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            Column.Changed += Column_Changed;
+            Column.Changed += ReRender;
         }
 
-        private void Column_Changed() => StateHasChanged();
+        protected override bool ShouldRender() => _shouldRender;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            _shouldRender = false;
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        private void ReRender()
+        {
+            _shouldRender = true;
+            StateHasChanged();
         }
     }
 }

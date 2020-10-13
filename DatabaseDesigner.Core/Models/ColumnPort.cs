@@ -1,5 +1,4 @@
 ﻿using Blazor.Diagrams.Core.Models;
-using System;
 
 namespace DatabaseDesigner.Core.Models
 {

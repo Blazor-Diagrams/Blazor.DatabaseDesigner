@@ -7,6 +7,10 @@
     {
         <i class="fas fa-key mr-2 text-warning"></i>
     }
-    <span class="text-primary @(Column.Primary ? "" : "ml-4")">@Column.Type.ToString()</span>
+    else if (IsReferenceKey)
+    {
+        <i class="fas fa-key mr-2 text-secondary"></i>
+    }
+    <span class="text-primary @(Column.Primary || IsReferenceKey ? "" : "ml-4")">@Column.Type.ToString()</span>
     @Column.Name
 </li>
