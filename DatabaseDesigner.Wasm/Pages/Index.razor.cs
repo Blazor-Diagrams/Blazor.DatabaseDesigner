@@ -4,9 +4,10 @@ using DatabaseDesigner.Core.Models;
 using DatabaseDesigner.Wasm.Components.Diagram;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
-using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DatabaseDesigner.Wasm.Pages
@@ -63,13 +64,16 @@ namespace DatabaseDesigner.Wasm.Pages
 
         private async Task ShowJson()
         {
-            var json = JsonSerializer.Serialize(new
+            var json = JsonConvert.SerializeObject(new
             {
                 Nodes = Diagram.Nodes.Cast<object>(),
                 Links = Diagram.AllLinks.Cast<object>()
+            }, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
 
-            await JSRuntime.InvokeVoidAsync("alert", json);
+            await JSRuntime.InvokeVoidAsync("console.log", json);
         }
 
         private void Debug()

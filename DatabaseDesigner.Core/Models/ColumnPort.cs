@@ -1,4 +1,5 @@
 ﻿using Blazor.Diagrams.Core.Models;
+using System.Text.Json.Serialization;
 
 namespace DatabaseDesigner.Core.Models
 {
@@ -10,6 +11,7 @@ namespace DatabaseDesigner.Core.Models
             Column = column;
         }
 
+        [JsonIgnore]
         public Column Column { get; }
 
         public override bool CanAttachTo(PortModel port)
