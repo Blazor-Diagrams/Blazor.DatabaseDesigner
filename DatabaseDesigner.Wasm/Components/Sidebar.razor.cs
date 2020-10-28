@@ -65,6 +65,7 @@ namespace DatabaseDesigner.Wasm.Components
             if (_selectedColumn == null || _selectedColumn.Primary)
                 return;
 
+            _selectedTable.RemovePort(_selectedTable.GetPort(_selectedColumn));
             _selectedTable.Columns.Remove(_selectedColumn);
             _selectedTable.Refresh();
         }

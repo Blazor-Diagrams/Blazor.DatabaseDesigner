@@ -15,7 +15,7 @@ namespace DatabaseDesigner.Wasm.Components.Diagram
         [Parameter]
         public Column Column { get; set; }
 
-        public bool IsReferenceKey => Table.GetPort(Column)?.Links.Count > 0;
+        public bool HasLinks => Table.GetPort(Column)?.Links.Count > 0;
 
         public void Dispose()
         {
