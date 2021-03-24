@@ -1,7 +1,9 @@
 ﻿using Blazor.Diagrams.Core;
+using Blazor.Diagrams.Core.Geometry;
 using Blazor.Diagrams.Core.Models;
+using Blazor.Diagrams.Core.Models.Base;
 using DatabaseDesigner.Core.Models;
-using DatabaseDesigner.Wasm.Components.Diagram;
+using DatabaseDesigner.Wasm.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
@@ -17,16 +19,27 @@ namespace DatabaseDesigner.Wasm.Pages
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
-        public DiagramManager Diagram { get; } = new DiagramManager(new DiagramOptions
+        public Diagram Diagram { get; } = new Diagram(new DiagramOptions
         {
             GridSize = 40,
-            AllowMultiSelection = false
+            AllowMultiSelection = false,
+            Links = new DiagramLinkOptions
+            {
+                Factory = (diagram, sourcePort) =>
+                {
+                    return new LinkModel(sourcePort, null)
+                    {
+                        Router = Routers.Orthogonal,
+                        PathGenerator = PathGenerators.Straight,
+                    };
+                }
+            }
         });
 
         public void Dispose()
         {
-            Diagram.LinkAttached -= Diagram_LinkAttached;
-            Diagram.LinkRemoved -= Diagram_LinkRemoved;
+            Diagram.Links.Added -= OnLinkAdded;
+            Diagram.Links.Removed -= Diagram_LinkRemoved;
         }
 
         protected override void OnInitialized()
@@ -34,21 +47,29 @@ namespace DatabaseDesigner.Wasm.Pages
             base.OnInitialized();
 
             Diagram.RegisterModelComponent<Table, TableNode>();
-            Diagram.AddNode(new Table());
+            Diagram.Nodes.Add(new Table());
 
-            Diagram.LinkAttached += Diagram_LinkAttached;
-            Diagram.LinkRemoved += Diagram_LinkRemoved;
+            Diagram.Links.Added += OnLinkAdded;
+            Diagram.Links.Removed += Diagram_LinkRemoved;
         }
 
-        private void Diagram_LinkAttached(LinkModel link)
+        private void OnLinkAdded(BaseLinkModel link)
         {
-            var sourceCol = (link.SourcePort as ColumnPort).Column;
-            var targetCol = (link.TargetPort as ColumnPort).Column;
-            (sourceCol.Primary ? targetCol : sourceCol).Refresh();
+            link.TargetPortChanged += OnLinkTargetPortChanged;
         }
 
-        private void Diagram_LinkRemoved(LinkModel link)
+        private void OnLinkTargetPortChanged(BaseLinkModel link, PortModel oldPort, PortModel newPort)
         {
+            link.Labels.Add(new LinkLabelModel(link, "1..*", -40, new Point(0, -30)));
+            link.Refresh();
+
+            ((newPort ?? oldPort) as ColumnPort).Column.Refresh();
+        }
+
+        private void Diagram_LinkRemoved(BaseLinkModel link)
+        {
+            link.TargetPortChanged -= OnLinkTargetPortChanged;
+
             if (!link.IsAttached)
                 return;
 
@@ -59,7 +80,7 @@ namespace DatabaseDesigner.Wasm.Pages
 
         private void NewTable()
         {
-            Diagram.AddNode(new Table());
+            Diagram.Nodes.Add(new Table());
         }
 
         private async Task ShowJson()
@@ -67,7 +88,7 @@ namespace DatabaseDesigner.Wasm.Pages
             var json = JsonConvert.SerializeObject(new
             {
                 Nodes = Diagram.Nodes.Cast<object>(),
-                Links = Diagram.AllLinks.Cast<object>()
+                Links = Diagram.Links.Cast<object>()
             }, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore

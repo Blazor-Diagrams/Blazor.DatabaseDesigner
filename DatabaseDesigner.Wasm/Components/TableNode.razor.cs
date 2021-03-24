@@ -1,7 +1,7 @@
 ﻿using DatabaseDesigner.Core.Models;
 using Microsoft.AspNetCore.Components;
 
-namespace DatabaseDesigner.Wasm.Components.Diagram
+namespace DatabaseDesigner.Wasm.Components
 {
     public partial class TableNode
     {

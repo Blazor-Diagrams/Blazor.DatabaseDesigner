@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Z.Blazor.Diagrams.Core" Version="1.1.0" />
+    <PackageReference Include="Z.Blazor.Diagrams.Core" Version="2.0.0-rc.2" />
   </ItemGroup>
 
 </Project>

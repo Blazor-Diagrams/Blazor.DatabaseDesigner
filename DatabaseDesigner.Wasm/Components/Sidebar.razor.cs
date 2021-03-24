@@ -13,8 +13,8 @@ namespace DatabaseDesigner.Wasm.Components
         private Table _selectedTable;
         private Column _selectedColumn;
 
-        [CascadingParameter(Name = "DiagramManager")]
-        public DiagramManager Diagram { get; set; }
+        [CascadingParameter]
+        public Diagram Diagram { get; set; }
 
         public void Dispose()
         {
@@ -28,11 +28,11 @@ namespace DatabaseDesigner.Wasm.Components
             Diagram.SelectionChanged += Diagram_SelectionChanged;
         }
 
-        private void Diagram_SelectionChanged(SelectableModel model, bool selected)
+        private void Diagram_SelectionChanged(SelectableModel model)
         {
             if (model is Table tm)
             {
-                _selectedTable = selected ? tm : null;
+                _selectedTable = model.Selected ? tm : null;
                 _selectedColumn = null;
                 StateHasChanged();
             }
